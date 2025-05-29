@@ -68,8 +68,6 @@ HRBoard is a web-based HR management system that allows adding, viewing, and man
 |------------------|----------------------------------------------|
 | Key Vault        | Holds secrets like MONGO_URI, JWT            |
 | Ingress (Public) | Allows access via domain without a bastion   |
-| No Bastion       | Direct public access via LoadBalancer IP     |
-
 ---
 
 ## 📈 Basic Monitoring
