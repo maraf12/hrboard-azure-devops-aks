@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hrboard-frontend
+  namespace: hrboard
+spec:
+  selector:
+    app: hrboard-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hrboard-frontend
+  namespace: hrboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hrboard-frontend
+  template:
+    metadata:
+      labels:
+        app: hrboard-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: hrboard-frontend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REACT_APP_API_URL
+              value: http://hrboard-backend.hrboard.svc.cluster.local:5000
