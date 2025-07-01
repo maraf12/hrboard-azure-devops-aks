@@ -38,6 +38,9 @@ HRBoard is a web-based HR management system that allows adding, viewing, and man
 | Services            | Internal ClusterIP communication                  |
 | Ingress Controller  | NGINX exposes frontend (and optionally backend)   |
 
+## 💬 Sample Output
+
+- Visit: `http://<external-ip>` → _🚀 Welcome to DevOps and your first app!_
 
 🔄 CI/CD – Azure DevOps (Planned)
 | Step                | Description                           |
@@ -60,3 +63,26 @@ HRBoard is a web-based HR management system that allows adding, viewing, and man
 | -------------------- | ------------------------------------------ |
 | Pod logs             | Debug backend/frontend/database containers |
 | Azure Monitor        | Observe AKS metrics and alerts [ to add ]  |
+
+
+## 🛠 Project Structure
+
+- `/terraform`: Infrastructure for ACR, AKS, and Resource Group
+- `/app`: Node.js sample app + Dockerfile
+- `/k8s`: Kubernetes deployment and service
+- `.azure-pipelines.yml`: CI/CD workflow
+
+## 📍 Step-by-Step Roadmap
+
+1. **Provision Infrastructure** (Terraform)
+2. **Build and Push Docker Image** (DevOps Agent → ACR)
+3. **Deploy to AKS** (via Kubernetes YAML + pipeline)
+4. **Automate via DevOps Pipelines**
+5. **Use Self-hosted Agent if no free Microsoft parallelism**
+
+## 🔗 Resources
+
+- [Terraform Provider for AzureRM](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
+- [Azure DevOps Pipelines](https://learn.microsoft.com/en-us/azure/devops/pipelines/?view=azure-devops)
+- [AKS Docs](https://learn.microsoft.com/en-us/azure/aks/)
+- [Docker Basics](https://docs.docker.com/get-started/)
