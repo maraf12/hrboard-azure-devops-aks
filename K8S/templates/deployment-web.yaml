@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hrboard-web
+  labels:
+    app: hrboard-web
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app: hrboard-web
+  template:
+    metadata:
+      labels:
+        app: hrboard-web
+    spec:
+      containers:
+      - name: hrboard-web
+        image: {{ .Values.frontend.image }}
+        ports:
+        - containerPort: 80

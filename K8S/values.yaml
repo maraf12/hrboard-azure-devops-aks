@@ -1,0 +1,12 @@
+frontend:
+  image: "hrboardacr.azurecr.io/hrboard-web:latest"
+  replicaCount: 1
+  containerPort: 80
+
+backend:
+  image: "hrboardacr.azurecr.io/hrboard-api:latest"
+  replicaCount: 1
+  containerPort: 8080
+
+ingress:
+  host: "hrboard.local"

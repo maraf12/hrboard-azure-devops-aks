@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hrboard-api
+  namespace: hrboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hrboard-api
+  template:
+    metadata:
+      labels:
+        app: hrboard-api
+    spec:
+      containers:
+      - name: hrboard-api
+        image: hrboardacr.azurecr.io/hrboard-api:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql.hrboard.svc.cluster.local:3306/hrboarddb?useSSL=false&allowPublicKeyRetrieval=true"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "hruser"
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-password
+        livenessProbe:
+          httpGet:
+            path: /api/department
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/department
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 2

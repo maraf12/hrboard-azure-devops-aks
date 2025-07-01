@@ -1,0 +1,10 @@
+find . -name "*.pyc" | xargs rm -f
+find . -name "*.lock" | xargs rm -f
+find . -name "*.sock" | xargs rm -f
+find . -name ".venv" | xargs rm -rf
+node_modules/
+**/node_modules/
+*.log
+*.sock
+*.lock
+.venv/

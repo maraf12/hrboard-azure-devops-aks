@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hrboard-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    
+spec:
+  ingressClassName: nginx  # Add this critical line
+  rules:
+  - host: {{ .Values.ingress.host }}
+    http:
+      paths:
+      - path: /api  # Fixed regex
+        pathType: Prefix
+        backend:
+          service:
+            name: hrboard-api
+            port: 
+              number: 8080
+      - path: /  # Catch-all for frontend
+        pathType: Prefix
+        backend:
+          service:
+            name: hrboard-web
+            port: 
+              number: 80

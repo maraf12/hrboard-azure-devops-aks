@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hrboard-api
+  labels:
+    app: hrboard-api
+spec:
+  type: ClusterIP
+  selector:
+    app: hrboard-api
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP

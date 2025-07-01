@@ -1,0 +1,6 @@
+apiVersion: v2
+name: hrboard
+description: A Helm chart for HRBoard application (frontend + backend)
+type: application
+version: 0.1.0
+appVersion: "1.0"
