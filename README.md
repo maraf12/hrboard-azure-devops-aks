@@ -59,5 +59,4 @@ HRBoard is a web-based HR management system that allows adding, viewing, and man
 | Tool                 | Role                                       |
 | -------------------- | ------------------------------------------ |
 | Pod logs             | Debug backend/frontend/database containers |
-| Application Insights | Collect application-level metrics          |
-| Azure Monitor        | Observe AKS metrics and alerts             |
+| Azure Monitor        | Observe AKS metrics and alerts [ to add ]  |
