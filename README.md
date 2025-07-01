@@ -42,7 +42,7 @@ HRBoard is a web-based HR management system that allows adding, viewing, and man
 
 - Visit: `http://<external-ip>` → _🚀 Welcome to DevOps and your first app!_
 
-🔄 CI/CD – Azure DevOps (Planned)
+🔄 CI/CD – Azure DevOps 
 | Step                | Description                           |
 | ------------------- | ------------------------------------- |
 | Build Docker images | Backend and frontend                  |
