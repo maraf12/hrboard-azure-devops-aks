@@ -1,0 +1,61 @@
+trigger:
+  branches:
+    include:
+      - master
+
+variables:
+  IMAGE_REPO: hrboardacr.azurecr.io
+  API_PATH: App/hrboard-api
+  WEB_PATH: App/hrboard-web
+  CHART_PATH: K8S
+
+stages:
+- stage: Build
+  displayName: Build and Push Images
+  jobs:
+  - job: BuildAPI
+    displayName: Build Backend API Image
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      inputs:
+        command: buildAndPush
+        repository: $(IMAGE_REPO)/hrboard-api
+        dockerfile: $(API_PATH)/Dockerfile
+        containerRegistry: hrboard-acr-service-conn
+        tags: latest
+
+  - job: BuildFrontend
+    displayName: Build Frontend Image
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      inputs:
+        command: buildAndPush
+        repository: $(IMAGE_REPO)/hrboard-web
+        dockerfile: $(WEB_PATH)/Dockerfile
+        containerRegistry: hrboard-acr-service-conn
+        tags: latest
+
+- stage: Deploy
+  displayName: Deploy to AKS
+  dependsOn: Build
+  jobs:
+  - job: HelmDeploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: HelmInstaller@1
+      inputs:
+        helmVersionToInstall: 'latest'
+
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'hrboard-aks-service-conn'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          az aks get-credentials --resource-group hrboard --name hrboard-aks --overwrite-existing
+          helm upgrade --install hrboard $(CHART_PATH) --namespace hrboard --create-namespace
