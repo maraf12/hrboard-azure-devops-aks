@@ -23,7 +23,7 @@ stages:
         command: buildAndPush
         repository: $(IMAGE_REPO)/hrboard-api
         dockerfile: $(API_PATH)/Dockerfile
-        containerRegistry: hrboard-acr-service-conn
+        containerRegistry: hrboard-service-conn
         tags: latest
 
   - job: BuildFrontend
@@ -36,7 +36,7 @@ stages:
         command: buildAndPush
         repository: $(IMAGE_REPO)/hrboard-web
         dockerfile: $(WEB_PATH)/Dockerfile
-        containerRegistry: hrboard-acr-service-conn
+        containerRegistry: hrboard-service-conn
         tags: latest
 
 - stage: Deploy
@@ -53,7 +53,7 @@ stages:
 
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'hrboard-aks-service-conn'
+        azureSubscription: 'hrboard-service-conn'
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
