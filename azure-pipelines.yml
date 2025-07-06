@@ -54,7 +54,7 @@ stages:
     - task: AzureCLI@2
       inputs:
         azureSubscription: 'hrboard-service-conn'
-        scriptType: bash
+        scriptType: ps  # ✅ Changed to PowerShell
         scriptLocation: inlineScript
         inlineScript: |
           az aks get-credentials --resource-group hrboard --name hrboard-aks --overwrite-existing
