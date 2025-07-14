@@ -25,6 +25,8 @@ stages:
         dockerfile: $(API_PATH)/Dockerfile
         containerRegistry: hrboard-acr-service-conn
         tags: latest
+      env:
+        DOCKER_HOST: tcp://localhost:2375
 
   - job: BuildFrontend
     displayName: Build Frontend Image
@@ -38,6 +40,8 @@ stages:
         dockerfile: $(WEB_PATH)/Dockerfile
         containerRegistry: hrboard-acr-service-conn
         tags: latest
+      env:
+        DOCKER_HOST: tcp://localhost:2375
 
 - stage: Deploy
   displayName: Deploy to AKS
@@ -54,7 +58,7 @@ stages:
     - task: AzureCLI@2
       inputs:
         azureSubscription: 'hrboard-service-conn'
-        scriptType: ps  # ✅ Changed to PowerShell
+        scriptType: ps  # PowerShell
         scriptLocation: inlineScript
         inlineScript: |
           az aks get-credentials --resource-group hrboard --name hrboard-aks --overwrite-existing
